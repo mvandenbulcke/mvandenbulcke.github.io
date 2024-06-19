@@ -1,5 +1,5 @@
 ---
-title: "About me"
+title: "Home lab"
 # weight: 1
 # aliases: ["/first"]
 # author: ["Me", "You"] # multiple authors
