@@ -1,6 +1,6 @@
 ---
 title: "Add printers based on IP octet"
-date: 2024-04-28T12:00:03+00:00
+date: 2024-03-28T12:00:03+00:00
 # weight: 1
 # aliases: ["/first"]
 tags: ["PowerShell"]
@@ -11,7 +11,6 @@ TocOpen: false
 draft: false
 hidemeta: false
 comments: false
-description: "In this post I will share how you can add printers based on IP octet."
 disableHLJS: true # to disable highlightjs
 disableShare: false
 disableHLJS: false
