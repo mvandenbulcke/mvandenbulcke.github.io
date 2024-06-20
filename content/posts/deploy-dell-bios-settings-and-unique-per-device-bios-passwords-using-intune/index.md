@@ -37,7 +37,7 @@ It seems that Dell now has a [specific version of command configure that’s use
 
 Download [Dell Command | Configure Application](https://www.dell.com/support/home/en-us/drivers/DriversDetails?driverId=TJ7VC) and configure your desired BIOS settings. Click on Export config and save the CCTK file.
 
-{{< figure src="./image-1.webp" clicktozoom="true">}}
+{{< figure src="./image-1.webp">}}
 
 1. Open the [Microsoft Intune admin center portal](https://intune.microsoft.com/) and navigate to Devices -> Configuration.
 2. On the Devices | Configuration page, click Create -> New policy.
@@ -49,13 +49,13 @@ Download [Dell Command | Configure Application](https://www.dell.com/support/hom
 5. On the **Configurations** page, click the **Hardware** dropdown -> Dell
 6. In the **Configuration file**, upload the **CCTK file** you created earlier.
 
-{{< figure src="./image-2.png" clicktozoom="true">}}
+{{< figure src="./image-2.png">}}
 
 We will now create the [Dell Command | Endpoint Configure for Microsoft Intune](https://www.dell.com/support/home/en-us/drivers/driversdetails?driverid=T88X8) Win32 app.
 
 Download the file and click on **Extract**.
 
-{{< figure src="./image-3.png" clicktozoom="true">}}
+{{< figure src="./image-3.png">}}
 
 Select a folder (In my case this is C:\Temp\Dell) and click on **OK**.
 
@@ -90,23 +90,23 @@ We can now force a sync in the Company portal on a Dell device. After a reboot, 
 
 We can do this by adding the URL https://graph.microsoft.com/beta/deviceManagement/hardwarePasswordInfo with -scope after the URL and click on “Open the Permissions panel”
 
-{{< figure src="./image-6.webp" clicktozoom="true">}}
+{{< figure src="./image-6.webp">}}
 
 And we search for the different scopes and click on consent.
 
-{{< figure src="./image-7.png" clicktozoom="true">}}
+{{< figure src="./image-7.png">}}
 
-{{< figure src="./image-8.png" clicktozoom="true">}}
+{{< figure src="./image-8.png">}}
 
-{{< figure src="./image-9.png" clicktozoom="true">}}
+{{< figure src="./image-9.png">}}
 
 After this we remove the -scope from the URL and request our password. You can see that we receive the passwords for all the devices.
 
-{{< figure src="./image-10.webp" clicktozoom="true">}}
+{{< figure src="./image-10.webp">}}
 
 If you want to filter it for a specific device, you can use a filter in the URL to filter for a specific device. https://graph.microsoft.com/beta/deviceManagement/hardwarePasswordInfo?$filter=serialNumber eq ‘SERIALNUMBER’ where you replace SERIALNUMBER with the serial number of the device.
 
-{{< figure src="./image-11.webp" clicktozoom="true">}}
+{{< figure src="./image-11.webp">}}
 
 And that’s about it.
 
