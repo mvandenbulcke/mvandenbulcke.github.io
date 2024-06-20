@@ -3,7 +3,7 @@ title: "Deploy Dell BIOS settings and unique per device BIOS passwords using Int
 date: 2024-03-28T12:00:03+00:00
 # weight: 1
 # aliases: ["/first"]
-tags: ["Azure Stack HCI"]
+tags: ["Intune","Dell"]
 author: "Michaël Vandenbulcke"
 # author: ["Me", "You"] # multiple authors
 showToc: true
