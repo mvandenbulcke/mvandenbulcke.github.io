@@ -1,5 +1,5 @@
 ---
-title: "Azure Stack HCI: Unable to retrieve data for PhysicalDisk"
+title: "Deploy Dell BIOS settings and unique per device BIOS passwords using Intune"
 date: 2024-03-28T12:00:03+00:00
 # weight: 1
 # aliases: ["/first"]
@@ -39,25 +39,25 @@ Download [Dell Command | Configure Application](https://www.dell.com/support/hom
 
 {{< figure src="./image-1.webp">}}
 
-Open the [Microsoft Intune admin center portal](https://intune.microsoft.com/) and navigate to Devices -> Configuration.
-On the Devices | Configuration page, click Create -> New policy.
-On the Create a profile page, provide the following information and click Create.
-Platform: Select Windows 10 and later as value
-Profile type: Select Templates as value
-Template name: Select BIOS configurations and other settings as value
-On the Basics page, provide a Name and click next.
-On the Configurations page, click the Hardware dropdown -> Dell
-In the Configuration file, upload the CCTK file you created earlier.
+1. Open the [Microsoft Intune admin center portal](https://intune.microsoft.com/) and navigate to Devices -> Configuration.
+2. On the Devices | Configuration page, click Create -> New policy.
+3. On the **Create a profile page**, provide the following information and click Create.
+- **Platform: Select Windows 10 and later** as value
+- **Profile type**: Select **Templates** as value
+- **Template name**: Select **BIOS configurations and other settings** as value
+4. On the **Basics** page, provide a **Name** and click next.
+5. On the **Configurations** page, click the **Hardware** dropdown -> Dell
+6. In the **Configuration file**, upload the **CCTK file** you created earlier.
 
 {{< figure src="./image-2.png">}}
 
 We will now create the [Dell Command | Endpoint Configure for Microsoft Intune](https://www.dell.com/support/home/en-us/drivers/driversdetails?driverid=T88X8) Win32 app.
 
-Download the file and click on Extract.
+Download the file and click on **Extract**.
 
 {{< figure src="./image-3.png">}}
 
-Select a folder (In my case this is C:\Temp\Dell) and click on OK.
+Select a folder (In my case this is C:\Temp\Dell) and click on **OK**.
 
 We will now package the file for Intune by using the IntuneWinAppUtil.exe. The bellow command can be used for this:
 
@@ -65,28 +65,28 @@ We will now package the file for Intune by using the IntuneWinAppUtil.exe. The b
 C:\Temp\IntuneWinAppUtil.exe -c C:\Temp\Dell -s DCECMI.msi -o C:\Temp
 ```
 
-We now have the DCECMI.intunewin file in the C:\Temp folder that we can upload to Intune.
+We now have the **DCECMI.intunewin** file in the C:\Temp folder that we can upload to Intune.
 
-Open the [Microsoft Intune admin center portal](https://intune.microsoft.com/) and navigate to Apps-> Windows.
-On the Windows | Windows apps page, click Add-> Windows app (Win32).
-On the App information page, select the DCECMI.intunewin file and click on OK.
-You will notice that a lot of information is prefilled. Simply add the Publisher name and click on Next.
-On the Program page, click Next.
-On the Requirements page, select the mandatory options according to your requirements for your situation and click Next.
-On the Detection rules page, select Manually configure detection rules and click on Add.
-Select MSI and click on OK and click on Next.
-On the Dependencies page, click Next.
-On the Supersedence page, click Next.
-Assign it to the necessary groups (considering this is about Dell devices, ideally a group with only Dell devices) and click on Next.
-And as the final step, you click on Create.
+1. Open the [Microsoft Intune admin center portal](https://intune.microsoft.com/) and navigate to **Apps**-> **Windows**.
+2. On the Windows | Windows apps page, click **Add** -> **Windows app (Win32)**.
+3. On the **App information page**, select the **DCECMI.intunewin** file and click on **OK**.
+4. You will notice that a lot of information is prefilled. Simply add the Publisher name and click on **Next**.
+5. On the **Program page**, click **Next**.
+6. On the **Requirements page**, select the mandatory options according to your requirements for your situation and click **Next**.
+7. On the **Detection rules page**, select **Manually configure detection rules** and click on **Add**.
+8. Select **MSI** and click on **OK** and click on **Next**.
+9. On the **Dependencies page**, click **Next**.
+10. On the **Supersedence page**, click **Next**.
+11. Assign it to the necessary groups (considering this is about Dell devices, ideally a group with only Dell devices) and click on **Next**.
+12. And as the final step, you click on **Create**.
 
 {{< figure src="./image-4.webp">}}
 
 We can now force a sync in the Company portal on a Dell device. After a reboot, the device now has a BIOS password that I configured earlier in the CCTK. Now when we navigate to the [Graph Explorer](https://developer.microsoft.com/en-us/graph/graph-explorer). We can check the BIOS password for the device. First we start by granting consent for the following scopes:
 
-- DeviceManagementConfiguration.Read.All
-- DeviceManagementConfiguration.ReadWrite.All
-- DeviceManagementManagedDevices.PrivilegedOperations.All
+- **DeviceManagementConfiguration.Read.All**
+- **DeviceManagementConfiguration.ReadWrite.All**
+- **DeviceManagementManagedDevices.PrivilegedOperations.All**
 
 We can do this by adding the URL https://graph.microsoft.com/beta/deviceManagement/hardwarePasswordInfo with -scope after the URL and click on “Open the Permissions panel”
 
