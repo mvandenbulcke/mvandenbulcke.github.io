@@ -1,6 +1,6 @@
 ---
 title: "Azure Site Recovery: migration to modernized VMware replication troubleshooting"
-date: 2024-03-28T12:00:03+00:00
+date: 2024-05-7T12:00:03+00:00
 # weight: 1
 # aliases: ["/first"]
 tags: ["Azure Site Recovery"]
