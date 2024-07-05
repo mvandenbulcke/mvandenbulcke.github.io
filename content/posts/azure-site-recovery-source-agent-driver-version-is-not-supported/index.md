@@ -1,6 +1,6 @@
 ---
-title: "Azure Site Recovery: migration to modernized VMware replication troubleshooting"
-date: 2024-07-05T12:00:03+00:00
+title: "Azure Site Recovery: migration to modernized VMware replication"
+date: 2024-07-04T12:00:03+00:00
 # weight: 1
 # aliases: ["/first"]
 tags: ["Azure Site Recovery"]
@@ -33,7 +33,7 @@ cover:
 #    Text: "Suggest Changes" # edit text
 #    appendFilePath: true # to append file path to Edit link
 ---
-I recently was busy migrating a customer from the classic ASR vault to the modernized ASR vault. However during the process I ran into an issue. This post is to explain the issue and how you can easily resolve it yourself. In my scenario I already deployed modern vault in Azure with a new ASR appliance. 
+I was recently busy migrating a customer from the classic ASR vault to the modernized ASR vault. However during the process I ran into an issue. This post is to explain the issue and how you can easily resolve it yourself. In my scenario I already deployed modern vault in Azure with a new ASR appliance. 
 
 In your classic ASR vault, navigate to replicated items and click on **Upgrade to modernized VMware replication**
 {{< figure src="./image1.png">}}
