@@ -1,5 +1,5 @@
 ---
-title: "Removing the ISP (Proximus) modem for an FTTH connection"
+title: "Removing the ISP (Proximus) modem for a FTTH connection"
 date: 2024-04-02T12:00:03+00:00
 # weight: 1
 # aliases: ["/first"]
