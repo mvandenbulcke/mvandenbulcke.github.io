@@ -1,5 +1,5 @@
 ---
-title: "Azure Stack HCI 23H2 Installation and Setup Guide"
+title: "Azure Stack HCI 23H2: Installation and Setup Guide"
 date: 2024-05-14T12:00:03+00:00
 # weight: 1
 # aliases: ["/first"]
