@@ -5,7 +5,7 @@ title: "About me"
 # author: ["Me", "You"] # multiple authors
 ---
 {{< figure src="/mvdb.png" alt="A drawing of Michaël with his cat." width="250">}}
-Hi, I’m Michaël Vandenbulcke, born in 1997. I’m the founder of COTYX BV in Belgium where I primarily focus on Datacenter, Network and End-User Computing services. This blog is to document my journey through all things IT related.
+Hi, I’m Michaël Vandenbulcke, born in 1997. I've been in IT since 2014 but, was playing with it a lot earlier. I primarily focus on the infrastructure side of IT such as datacenter, networking and workplace. This blog is to document my journey through all things IT related.
 
 ## Certifications
 ### Veeam
