@@ -21,3 +21,4 @@ It seems that Microsoft is [no longer partnered](https://techcommunity.microsoft
 - [Microsoft Certified: Azure Administrator Associate](https://learn.microsoft.com/api/credentials/share/en-us/mvandenbulcke/8216226C0A6C3417?sharingId=D0F923C366879F67)
 - [Microsoft Certified: Identity and Access Administrator Associate](https://learn.microsoft.com/api/credentials/share/en-us/mvandenbulcke/C3C08E7EFB77D5C0?sharingId=D0F923C366879F67)
 - [Microsoft Certified: Azure Solutions Architect Expert](https://learn.microsoft.com/api/credentials/share/en-us/mvandenbulcke/16021FFA8A9D5343?sharingId=D0F923C366879F67)
+- [Microsoft Certified: Cybersecurity Architect Expert](https://learn.microsoft.com/api/credentials/share/en-us/mvandenbulcke/4EE987B265D38F6E?sharingId=D0F923C366879F67)
