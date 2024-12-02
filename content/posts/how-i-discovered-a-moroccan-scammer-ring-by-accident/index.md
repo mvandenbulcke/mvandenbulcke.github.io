@@ -43,7 +43,7 @@ In 2024, to optimize my expenditure and since I was closing my freelance company
 
 Fast forward to 30 November 2024, I receive an email on asia@cotyx.com regarding the Terms and Community standards update from Instagram. I first thought this email was phishing, but after a closer look, it was a legit email. So, like any curious IT technician, I reset the password and login to to investigate.
 
-{{< figure src="./image1.jpg">}}
+{{< figure src="./image.jpg">}}
 
 I start going through the messages, and see quite a few interesting things.
 
