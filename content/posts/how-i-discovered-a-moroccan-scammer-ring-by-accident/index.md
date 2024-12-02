@@ -70,7 +70,7 @@ But no morals were to be found, as they even tried scamming a 13 year old.
 {{< figure src="./image7.jpg">}}
 {{< figure src="./image8.jpg">}}
 
-After going through a few messages, I've noticed a group chat between several of the scammers their account. 
+After going through a few messages, I've noticed a group-chat between several scammer accounts. 
 
 {{< figure src="./image9.jpg">}}
 
