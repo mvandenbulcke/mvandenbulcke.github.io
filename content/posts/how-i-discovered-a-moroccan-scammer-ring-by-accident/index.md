@@ -1,6 +1,6 @@
 ---
 title: "How I discovered a Moroccan scammer ring by accident"
-date: 2024-12-1T12:00:03+00:00
+date: 2024-12-1T01:00:00+00:00
 # weight: 1
 # aliases: ["/first"]
 tags: ["OSINT"]
