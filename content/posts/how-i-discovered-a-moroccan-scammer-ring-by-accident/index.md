@@ -35,13 +35,13 @@ cover:
 ---
 This blog post describes how I discovered a (currently inactive) Moroccan scammer ring. 
 
-In 2021, I went to look for a short .com domain for a potential business in the future. After a lot of trying I finally landed on cotyx.com that was available and only 5 letters long! 
+In 2021, I started looking for a short .com domain for a potential business in the future. After a lot of trying I finally landed on cotyx.com that was available and only 5 letters long! 
 
 As any IT person, I added it to M365 and didn't think much more about it. 
 
-In 2024 to optimize my expenditure and since I was closing my company, I opted to host my emails on [Proton Mail](https://proton.me/mail) (not sponsored). Proton Mail has the ability for a catch-all address, so I set this up to get the most functionality out of the service.
+In 2024, to optimize my expenditure and since I was closing my freelance company, I opted to host my emails on [Proton Mail](https://proton.me/mail) (not sponsored). Proton Mail has the ability for a catch-all address, so I set this up to get the most functionality out of the service.
 
-Fast forward to 30 November 2024, I receive an email on asia@cotyx.com regarding the Terms and Community standards update from Instagram. I first thought this email was phishing, but after a closer look, it was a legit email. So, like any curious Ìt engineer, I reset the password and login to the account to investigate.
+Fast forward to 30 November 2024, I receive an email on asia@cotyx.com regarding the Terms and Community standards update from Instagram. I first thought this email was phishing, but after a closer look, it was a legit email. So, like any curious IT technician, I reset the password and login to to investigate.
 
 {{< figure src="./image1.png">}}
 
@@ -129,8 +129,10 @@ With a link to LinkedIn.
 
 The curious part is, the @advicetify follows the @photographe_agadir account on Instagram, both of which are owned by Mohamed El khadir.
 
-Since we don't have any more concrete answers, I'm stuck with the following question:
+Since we don't have any more concrete answers, I'm stuck with the following unanswered questions:
 
 Did Mohamed own the accounts from the beginning or did he buy/receive them from someone else?
+If Mohamed owns prodtify, why is it sharing an ICE number with nomfilms?
+When checking LinkedIn, one employee is both active for Smart Soluce and Nomfilms, but all his social links on the Smart Soluce website go to nowhere. How is he involved in all of this? 
 
-We know for certain that Mohamed knows our scammers. The phone numbers and the IPs involved, all trangulate the scam ring to Morocco in a town called Agadir. 
+The only certainty we have is that Mohamed knows our scammers. The phone numbers and the IPs involved, all trangulate the scam ring to Morocco in a town called Agadir. 
