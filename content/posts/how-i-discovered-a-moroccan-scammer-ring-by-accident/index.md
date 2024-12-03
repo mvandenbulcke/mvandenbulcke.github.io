@@ -51,7 +51,7 @@ I start going through the messages, and see quite a few interesting things.
 
 It seems they started their scam with a Shopify store on cotyx.com, where they would comment on people their posts to contact them for a collab. Once the person contacts them, they would share a link for their ambassador program and how they could get a 50% discount on their purchase to receive free products in the future. At first, I thought they were just dropshipping, something often done to steal money from the populace while adding no value. But as you can see further below, they did not even ship any products. 
 
-{{< figure src="./image3.jpg"> height="540"}}
+{{< figure src="./image3.jpg" height="540">}}
 
 Some people managed to file fraud claims with their bank to get their money back.
 
