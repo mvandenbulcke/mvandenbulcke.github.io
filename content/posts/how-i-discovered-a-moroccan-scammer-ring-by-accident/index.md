@@ -127,7 +127,10 @@ With a link to LinkedIn.
 
 {{< figure src="./image29.jpg">}}
 
-The curious part is, the @advicetify follows the @photographe_agadir account on Instagram, both of which are owned by Mohamed El khadir.
+The curious part is, the @advicetify follows the @photographe_agadir account on Instagram, both of which are owned by Mohamed El khadir and even uses it to comment on his own posts.
+
+{{< figure src="./image30.jpg">}}
+
 And currently the following facts are certain, the scams originated from a town called Agadir in Morocco, and that Mohamed either knows our scammers, or is part of the scammers. 
 
 I've send an email to Mohamed asking for comments based on a screenshot of the conversation with the @advicetify account, and I'm currently pending a response. 
