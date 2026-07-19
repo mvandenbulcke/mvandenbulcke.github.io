@@ -1,0 +1,48 @@
+<script>
+    (() => {
+        const body = document.body;
+        let preference = null;
+        try { preference = localStorage.getItem('pref-theme'); } catch (_) {}
+        const configured = body.dataset.themeDefault || 'auto';
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const resolved = preference === 'dark' || preference === 'light'
+            ? preference
+            : configured === 'auto'
+                ? (prefersDark ? 'dark' : 'light')
+                : configured;
+        body.classList.toggle('dark', resolved === 'dark');
+        body.classList.add('theme-resolved');
+    })();
+</script>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="header">
+    <nav class="nav" aria-label="Primary navigation">
+        <a class="site-brand" href="{{ site.Home.RelPermalink }}" aria-label="{{ site.Title }} — home">
+            <span class="site-brand__mark" aria-hidden="true">MVDB<span>/</span></span>
+            <span class="site-brand__name">
+                Michaël Vandenbulcke
+                <small>Systems Field Notes</small>
+            </span>
+        </a>
+
+        <div class="nav__cluster">
+            {{- $currentPage := . }}
+            <ul id="menu">
+                {{- range site.Menus.main }}
+                {{- $target := .URL | relLangURL -}}
+                {{- $isActive := or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.RelPermalink $target) -}}
+                {{- if and (eq .Identifier "blog") (eq $currentPage.Section "posts") }}{{ $isActive = true }}{{ end -}}
+                {{- if and (eq .Identifier "tags") (or (eq $currentPage.Kind "taxonomy") (eq $currentPage.Kind "term")) }}{{ $isActive = true }}{{ end -}}
+                <li><a href="{{ $target }}"{{ if $isActive }} class="active" aria-current="page"{{ end }}>{{ .Name }}</a></li>
+                {{- end }}
+            </ul>
+
+            {{- if not site.Params.disableThemeToggle }}
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch colour theme" title="Switch colour theme">
+                <span class="theme-toggle__icon" aria-hidden="true"></span>
+            </button>
+            {{- end }}
+        </div>
+    </nav>
+</header>

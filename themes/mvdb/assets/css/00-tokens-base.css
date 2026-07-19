@@ -1,0 +1,322 @@
+/*
+ * Michaël Vandenbulcke / Systems Field Notes
+ * Design tokens, reset, and shared primitives.
+ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-tap-highlight-color: transparent;
+    overflow-y: scroll;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+body,
+figure,
+ul,
+ol {
+    margin: 0;
+}
+
+body,
+button,
+input,
+textarea {
+    font: inherit;
+}
+
+button,
+input,
+textarea {
+    padding: 0;
+    color: inherit;
+    background: transparent;
+    border: 0;
+}
+
+button,
+input[type="button"],
+input[type="submit"] {
+    cursor: pointer;
+}
+
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+main,
+nav,
+section {
+    display: block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--ink);
+    line-height: 1.2;
+}
+
+ul,
+ol {
+    padding: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+hr {
+    border: 0;
+}
+
+code {
+    direction: ltr;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+:root {
+    color-scheme: light;
+    --gap: clamp(18px, 3vw, 36px);
+    --content-gap: 1.65rem;
+    --nav-width: 1240px;
+    --main-width: 1240px;
+    --header-height: 80px;
+    --footer-height: 250px;
+    --radius: 2px;
+
+    --theme: #f4f0e7;
+    --entry: #fbf8f1;
+    --primary: #10283d;
+    --secondary: #65717a;
+    --tertiary: #ded9cf;
+    --content: #253d4d;
+    --code-block-bg: #0b1d2c;
+    --code-bg: #e8e4da;
+    --border: #d6d1c7;
+
+    --paper: #f4f0e7;
+    --paper-raised: #fbf8f1;
+    --ink: #10283d;
+    --ink-soft: #405463;
+    --muted: #65717a;
+    --line: #d6d1c7;
+    --signal: #008f9c;
+    --signal-bright: #00b7c7;
+    --signal-soft: rgba(0, 143, 156, 0.12);
+    --shadow: 0 18px 55px rgba(16, 40, 61, 0.08);
+    --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+.dark {
+    color-scheme: dark;
+    --theme: #0b1721;
+    --entry: #11222e;
+    --primary: #edf3f2;
+    --secondary: #96a8ae;
+    --tertiary: #213744;
+    --content: #d2dedd;
+    --code-block-bg: #07121b;
+    --code-bg: #172b37;
+    --border: #29404c;
+
+    --paper: #0b1721;
+    --paper-raised: #11222e;
+    --ink: #edf3f2;
+    --ink-soft: #c3d1d2;
+    --muted: #96a8ae;
+    --line: #29404c;
+    --signal: #39d0da;
+    --signal-bright: #65e3ea;
+    --signal-soft: rgba(57, 208, 218, 0.12);
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.24);
+}
+
+/* Preserve the OS preference when JavaScript is unavailable in auto mode. */
+
+@media (prefers-color-scheme: dark) {
+    .theme-auto:not(.theme-resolved) {
+        color-scheme: dark;
+        --theme: #0b1721;
+        --entry: #11222e;
+        --primary: #edf3f2;
+        --secondary: #96a8ae;
+        --tertiary: #213744;
+        --content: #d2dedd;
+        --code-block-bg: #07121b;
+        --code-bg: #172b37;
+        --border: #29404c;
+
+        --paper: #0b1721;
+        --paper-raised: #11222e;
+        --ink: #edf3f2;
+        --ink-soft: #c3d1d2;
+        --muted: #96a8ae;
+        --line: #29404c;
+        --signal: #39d0da;
+        --signal-bright: #65e3ea;
+        --signal-soft: rgba(57, 208, 218, 0.12);
+        --shadow: 0 20px 60px rgba(0, 0, 0, 0.24);
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-height) + 32px);
+}
+
+body,
+.list,
+.dark.list {
+    background: var(--paper);
+}
+
+body {
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    font-synthesis: none;
+    line-height: 1.6;
+    letter-spacing: -0.008em;
+    overflow-x: clip;
+}
+
+::selection {
+    color: #06151f;
+    background: #78e4e9;
+}
+
+a,
+button {
+    transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, opacity 160ms ease, transform 160ms ease;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+    outline: 3px solid var(--signal-bright) !important;
+    outline-offset: 4px;
+}
+
+.main {
+    width: 100%;
+    max-width: calc(var(--main-width) + (var(--gap) * 2));
+    min-height: calc(100vh - var(--header-height) - var(--footer-height));
+    padding: 0 var(--gap);
+}
+
+.main:focus {
+    outline: none;
+}
+
+.skip-link {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 1000;
+    padding: 10px 16px;
+    color: #06151f;
+    background: var(--signal-bright);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    transform: translateY(-150%);
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+.eyebrow {
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.button {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    padding: 0 20px;
+    border: 1px solid var(--ink);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.button--primary {
+    color: var(--paper);
+    background: var(--ink);
+}
+
+.button--primary:hover {
+    color: #06151f;
+    background: var(--signal-bright);
+    border-color: var(--signal-bright);
+    transform: translateY(-2px);
+}
+
+
+.main {
+    position: relative;
+    margin: 0 auto;
+}
+
+.entry-link {
+    position: absolute;
+    inset: 0;
+}
+
+.button--secondary {
+    color: var(--ink);
+    background: transparent;
+}
+
+.button--secondary:hover {
+    color: var(--signal);
+    border-color: var(--signal);
+    transform: translateY(-2px);
+}

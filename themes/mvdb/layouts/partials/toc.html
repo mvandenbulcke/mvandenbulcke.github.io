@@ -1,0 +1,11 @@
+{{- $headers := findRE "<h[1-6][^>]*>" .Content -}}
+{{- if gt (len $headers) 0 -}}
+<div class="toc">
+    <details{{ if .Param "tocopen" }} open{{ end }}>
+        <summary accesskey="c" title="Toggle table of contents (Alt + C)">
+            <span class="details">On this page</span>
+        </summary>
+        <div class="inner">{{ .TableOfContents | replaceRE "<nav id=\"TableOfContents\">" "<nav id=\"TableOfContents\" aria-label=\"On this page\">" | safeHTML }}</div>
+    </details>
+</div>
+{{- end -}}

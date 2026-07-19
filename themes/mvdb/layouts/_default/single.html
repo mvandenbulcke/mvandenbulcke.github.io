@@ -1,0 +1,72 @@
+{{- define "main" }}
+<article class="post-single">
+    <header class="article-hero">
+        {{- partial "breadcrumbs.html" . }}
+        {{- with .GetTerms "tags" }}
+        <ul class="article-kicker" aria-label="Topics">
+            {{- range . }}<li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{- end }}
+        </ul>
+        {{- end }}
+        <h1 class="post-title">{{ .Title }}</h1>
+        {{- $description := .Description | default (.Summary | plainify | htmlUnescape) -}}
+        {{- with $description }}<p class="post-description">{{ . | truncate 260 }}</p>{{- end }}
+        {{- if eq .Section "posts" }}
+        <div class="article-meta" aria-label="Article details">
+            {{- if not .Date.IsZero }}
+            <span><small>Published</small><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format site.Params.DateFormat }}</time></span>
+            {{- end }}
+            {{- if and (not .Date.IsZero) (not .Lastmod.IsZero) (gt .Lastmod.Unix (add .Date.Unix 86400)) }}
+            <span><small>Reviewed</small><time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod | time.Format site.Params.DateFormat }}</time></span>
+            {{- end }}
+            <span><small>Reading time</small>{{ .ReadingTime }} {{ if eq .ReadingTime 1 }}minute{{ else }}minutes{{ end }}</span>
+            {{- with partial "author.html" . }}<span><small>By</small><a class="article-meta__author" href="{{ "/about/" | relLangURL }}">{{ . }}</a></span>{{- end }}
+        </div>
+        {{- end }}
+    </header>
+
+    {{- $showToc := and (.Param "ShowToc") (gt (len (findRE "<h[1-6][^>]*>" .Content)) 0) -}}
+    <div class="article-layout{{ if $showToc }} article-layout--with-toc{{ end }}">
+        {{- if $showToc }}
+        <aside class="article-rail" aria-label="On this page">{{ partial "toc.html" . }}</aside>
+        {{- end }}
+        <div class="article-body">
+            {{- $isHidden := (.Param "cover.hiddenInSingle") | default (.Param "cover.hidden") | default false -}}
+            {{- partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" $isHidden) }}
+            {{- with .Content }}
+            <div class="post-content">
+                {{- if not ($.Param "disableAnchoredHeadings") }}{{ partial "anchored_headings.html" . }}{{ else }}{{ . }}{{ end -}}
+            </div>
+            {{- end }}
+
+            <footer class="post-footer">
+                {{- if eq .Section "posts" }}
+                <section class="author-card" aria-labelledby="author-card-title">
+                    <div>
+                        <p class="eyebrow">About the author</p>
+                        <h2 id="author-card-title">{{ site.Params.author }}</h2>
+                        <p>{{ site.Params.authorBio }}</p>
+                    </div>
+                    <div class="author-card__links">
+                        <a href="{{ "/about/" | relLangURL }}">About me <span aria-hidden="true">→</span></a>
+                        {{- with site.Params.socialIcons }}
+                            {{- range . }}<a href="{{ .url }}" target="_blank" rel="me noopener noreferrer">{{ partial "social_label.html" .name }} <span aria-hidden="true">↗</span></a>{{- end }}
+                        {{- end }}
+                        <a href="{{ "/index.xml" | relLangURL }}">RSS <span aria-hidden="true">↗</span></a>
+                    </div>
+                </section>
+                {{- end }}
+                {{- with .GetTerms "tags" }}
+                <section class="post-taxonomy" aria-labelledby="post-topics-title">
+                    <p id="post-topics-title">Continue by topic</p>
+                    <ul class="post-tags">
+                        {{- range . }}<li><a href="{{ .RelPermalink }}">{{ .LinkTitle }} <span aria-hidden="true">↗</span></a></li>{{- end }}
+                    </ul>
+                </section>
+                {{- end }}
+                {{- if .Param "ShowPostNavLinks" }}{{ partial "post_nav_links.html" . }}{{ end }}
+                {{- if and (eq .Section "posts") site.Params.ShowShareButtons (ne .Params.disableShare true) }}{{ partial "share_icons.html" . }}{{ end }}
+            </footer>
+        </div>
+    </div>
+</article>
+{{- end }}

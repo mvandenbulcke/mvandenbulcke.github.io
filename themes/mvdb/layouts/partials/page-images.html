@@ -1,0 +1,28 @@
+{{- $page := . -}}
+{{- $images := slice -}}
+{{- with $page.Params.cover.image -}}
+    {{- $url := partial "resolve-image.html" (dict "page" $page "src" . "relative" ($page.Params.cover.relative | default false)) -}}
+    {{- $images = $images | append $url -}}
+{{- end -}}
+{{- if eq (len $images) 0 -}}
+    {{- with $page.Params.images -}}
+        {{- range . -}}
+            {{- $url := partial "resolve-image.html" (dict "page" $page "src" .) -}}
+            {{- $images = $images | append $url -}}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+{{- if eq (len $images) 0 -}}
+    {{- $featured := $page.Resources.GetMatch "*feature*" -}}
+    {{- if not $featured }}{{ $featured = $page.Resources.GetMatch "*cover*" }}{{ end -}}
+    {{- if not $featured }}{{ $featured = $page.Resources.GetMatch "*thumbnail*" }}{{ end -}}
+    {{- with $featured }}{{ $images = $images | append .Permalink }}{{ end -}}
+{{- end -}}
+{{- if eq (len $images) 0 -}}
+    {{- with site.Params.images -}}
+        {{- range first 1 . -}}
+            {{- $images = $images | append (. | absURL) -}}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+{{- return $images -}}

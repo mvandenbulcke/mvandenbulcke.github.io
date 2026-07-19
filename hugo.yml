@@ -1,0 +1,104 @@
+baseURL: "https://mvdb.io/"
+title: "Michaël Vandenbulcke — Systems Field Notes"
+theme: mvdb
+paginate: 6
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  title: "Michaël Vandenbulcke — Systems Field Notes"
+  description: "Practical field notes by Michaël Vandenbulcke on Azure, hybrid infrastructure, Windows, endpoint management, PowerShell, automation, and networking."
+  keywords: [Azure, Hybrid Infrastructure, Intune, PowerShell, Systems Engineering, Security, Field Notes]
+  author: "Michaël Vandenbulcke"
+  authorBio: "Systems engineer writing practical notes about Azure, Windows, automation, networking, and the infrastructure problems that take longer to solve than expected."
+  images: ["/og.jpg"]
+  mainSections: [posts]
+  DateFormat: "02 Jan 2006"
+  defaultTheme: auto # dark, light
+  disableThemeToggle: false
+
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: false
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: false
+  hidemeta: false
+  hideSummary: false
+  showtoc: true
+  tocopen: true
+
+  assets:
+    # disableHLJS: true # to disable highlight.js
+    # disableFingerprinting: true
+    theme_color: "#f4f0e7"
+    msapplication_TileColor: "#10283d"
+
+  label:
+    text: "MVDB"
+
+  socialIcons:
+    - name: linkedin
+      url: "https://www.linkedin.com/in/mvandenbulcke/"
+    - name: github
+      url: "https://github.com/mvandenbulcke"
+
+  cover:
+    hidden: true # hide everywhere but not in structured data
+    hiddenInList: true # hide on list pages and home
+    hiddenInSingle: true # hide on single page
+
+  # for search
+  # https://fusejs.io/api/options.html
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    limit: 10 # refer: https://www.fusejs.io/api/methods.html#search
+    keys: ["title", "permalink", "summary", "content"]
+menu:
+  main:
+    - identifier: blog
+      name: Blog
+      url: /posts/
+      weight: 10
+    - identifier: archive
+      name: Archive
+      url: /archive/
+      weight: 20
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 30
+    - identifier: rss
+      name: RSS
+      url: /index.xml
+      weight: 40
+
+
+# Emit semantic Chroma classes so the first-party theme controls code colours.
+pygmentsUseClasses: true
+markup:
+  highlight:
+    noClasses: false
+    # anchorLineNos: true
+    # codeFences: true
+    # guessSyntax: true
+    # lineNos: true
+    # style: monokai

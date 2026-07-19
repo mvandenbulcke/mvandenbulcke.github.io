@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Michaël — Systems Field Notes</title>
+  <desc id="description">Social sharing card for mvdb.io: practical notes for complicated systems.</desc>
+  <defs>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#d6d1c7" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="#f4f0e7"/>
+  <rect x="760" width="440" height="630" fill="url(#grid)" opacity="0.34"/>
+
+  <g fill="none" stroke-linecap="square">
+    <path d="M 690 172 H 814 V 96 H 1038" stroke="#10283d" stroke-width="2"/>
+    <path d="M 760 254 H 922 V 172 H 1200" stroke="#008f9c" stroke-width="2"/>
+    <path d="M 642 420 H 828 V 330 H 1028 V 464 H 1200" stroke="#10283d" stroke-width="2"/>
+    <path d="M 804 96 V 330 M 922 172 V 520 H 1090" stroke="#008f9c" stroke-width="2" stroke-dasharray="2 8"/>
+  </g>
+
+  <g fill="#f4f0e7" stroke="#008f9c" stroke-width="2">
+    <circle cx="814" cy="96" r="6"/>
+    <circle cx="1038" cy="96" r="6"/>
+    <circle cx="760" cy="254" r="6"/>
+    <circle cx="922" cy="172" r="6"/>
+    <circle cx="1028" cy="330" r="6"/>
+    <circle cx="1090" cy="520" r="6"/>
+  </g>
+  <g fill="#10283d">
+    <circle cx="690" cy="172" r="6"/>
+    <circle cx="804" cy="330" r="6"/>
+    <circle cx="828" cy="420" r="6"/>
+    <circle cx="1028" cy="464" r="6"/>
+  </g>
+
+  <text x="72" y="148" fill="#10283d" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="4">MVDB / SYSTEMS FIELD NOTES</text>
+  <text x="72" y="270" fill="#10283d" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="74" font-weight="700" letter-spacing="-4">Practical notes</text>
+  <text x="72" y="352" fill="#10283d" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="74" font-weight="700" letter-spacing="-4">for complicated</text>
+  <text x="72" y="434" fill="#008f9c" font-family="Georgia, Times New Roman, serif" font-size="78" font-style="italic">systems.</text>
+  <text x="72" y="548" fill="#405463" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="24" font-weight="700">mvdb.io</text>
+</svg>

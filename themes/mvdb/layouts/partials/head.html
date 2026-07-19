@@ -1,0 +1,43 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+
+{{- partial "seo.html" . }}
+{{- partial "social-meta.html" . }}
+{{- partial "structured-data.html" . }}
+
+{{- $assets := slice
+    "css/00-tokens-base.css"
+    "css/10-header.css"
+    "css/20-home.css"
+    "css/30-lists-taxonomy.css"
+    "css/40-article-content.css"
+    "css/50-syntax.css"
+    "css/60-footer-utilities.css"
+    "css/90-responsive.css"
+-}}
+{{- $styles := slice -}}
+{{- range $assets -}}
+    {{- $resource := resources.Get . -}}
+    {{- if not $resource }}{{ errorf "mvdb theme asset not found: %s" . }}{{ end -}}
+    {{- $styles = $styles | append $resource -}}
+{{- end -}}
+{{- $stylesheet := $styles | resources.Concat "assets/css/mvdb.css" | resources.Minify | fingerprint -}}
+<link rel="stylesheet" href="{{ $stylesheet.RelPermalink }}" integrity="{{ $stylesheet.Data.Integrity }}" crossorigin="anonymous">
+
+{{- with site.Params.assets.favicon }}<link rel="icon" href="{{ . | absURL }}">{{ else }}<link rel="icon" href="data:,">{{ end }}
+{{- with site.Params.assets.favicon16x16 }}<link rel="icon" type="image/png" sizes="16x16" href="{{ . | absURL }}">{{ end }}
+{{- with site.Params.assets.favicon32x32 }}<link rel="icon" type="image/png" sizes="32x32" href="{{ . | absURL }}">{{ end }}
+{{- with site.Params.assets.apple_touch_icon }}<link rel="apple-touch-icon" href="{{ . | absURL }}">{{ end }}
+<meta name="theme-color" content="{{ site.Params.assets.theme_color | default "#f4f0e7" }}">
+<meta name="msapplication-TileColor" content="{{ site.Params.assets.msapplication_TileColor | default "#10283d" }}">
+
+{{- range .AlternativeOutputFormats }}
+<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ site.Title }}">
+{{- end }}
+{{- range .AllTranslations }}
+<link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
+{{- end }}
+
+<noscript><style>#theme-toggle,.top-link{display:none}</style></noscript>
+{{- partial "extend_head.html" . }}

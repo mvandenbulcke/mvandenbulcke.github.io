@@ -1,0 +1,22 @@
+{{- $title := site.Title -}}
+{{- if not .IsHome }}{{ $title = printf "%s | %s" .Title site.Title }}{{ end -}}
+{{- $description := partial "meta-description.html" . -}}
+{{- $canonical := .Permalink -}}
+{{- with .Params.canonicalURL }}{{ $canonical = trim . " \n\r\t" }}{{ end -}}
+{{- $production := or hugo.IsProduction (eq site.Params.env "production") -}}
+<title>{{ $title }}</title>
+<meta name="description" content="{{ $description }}">
+{{- with partial "author.html" . }}
+<meta name="author" content="{{ . | plainify }}">
+{{- end }}
+{{- $keywords := .Params.keywords | default .Params.tags | default site.Params.keywords -}}
+{{- with $keywords }}
+<meta name="keywords" content="{{ delimit . ", " }}">
+{{- end }}
+<link rel="canonical" href="{{ $canonical }}">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+{{- if or .Params.robotsNoIndex (eq .Kind "404") (not $production) }}
+<meta name="robots" content="noindex, nofollow">
+{{- else }}
+<meta name="robots" content="index, follow, max-image-preview:large">
+{{- end }}

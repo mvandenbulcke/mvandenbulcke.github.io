@@ -1,0 +1,20 @@
+{{- if eq .Section "posts" -}}
+{{- $previous := .PrevInSection -}}
+{{- $next := .NextInSection -}}
+{{- if or $previous $next -}}
+<nav class="paginav{{ if not (and $previous $next) }} paginav--single{{ end }}" aria-label="Article navigation">
+    {{- with $previous }}
+    <a class="prev" href="{{ .RelPermalink }}">
+        <span class="title">← Previous note</span>
+        <span>{{ .Title }}</span>
+    </a>
+    {{- end }}
+    {{- with $next }}
+    <a class="next" href="{{ .RelPermalink }}">
+        <span class="title">Next note →</span>
+        <span>{{ .Title }}</span>
+    </a>
+    {{- end }}
+</nav>
+{{- end -}}
+{{- end -}}

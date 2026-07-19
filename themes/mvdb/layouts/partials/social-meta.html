@@ -1,0 +1,34 @@
+{{- $title := .Title -}}
+{{- if .IsHome }}{{ $title = site.Title }}{{ end -}}
+{{- $description := partial "meta-description.html" . -}}
+{{- $images := partial "page-images.html" . -}}
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ $description }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:locale" content="{{ replace (site.Language.LanguageCode | default site.Language.Lang | default "en_US") "-" "_" }}">
+{{- if gt (len $images) 0 }}
+{{- with index $images 0 }}
+<meta property="og:image" content="{{ . }}">
+<meta property="og:image:alt" content="{{ $title }}">
+{{- end }}
+{{- end }}
+{{- if .IsPage }}
+{{- with .Section }}<meta property="article:section" content="{{ . }}">{{ end }}
+{{- if not .Date.IsZero }}<meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ end }}
+{{- if not .Lastmod.IsZero }}<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">{{ end }}
+{{- range .Params.tags }}<meta property="article:tag" content="{{ . }}">{{ end }}
+{{- end }}
+<meta name="twitter:card" content="{{ if gt (len $images) 0 }}summary_large_image{{ else }}summary{{ end }}">
+<meta name="twitter:title" content="{{ $title }}">
+<meta name="twitter:description" content="{{ $description }}">
+{{- if gt (len $images) 0 }}
+{{- with index $images 0 }}
+<meta name="twitter:image" content="{{ . }}">
+<meta name="twitter:image:alt" content="{{ $title }}">
+{{- end }}
+{{- end }}
+{{- with site.Params.social.twitter }}
+<meta name="twitter:site" content="{{ if strings.HasPrefix . "@" }}{{ . }}{{ else }}@{{ . }}{{ end }}">
+{{- end }}

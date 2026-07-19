@@ -1,0 +1,20 @@
+{{- $page := .page -}}
+{{- $src := printf "%v" .src -}}
+{{- $clean := index (split $src "#") 0 -}}
+{{- $match := strings.TrimPrefix "./" $clean -}}
+{{- $resolved := "" -}}
+{{- $parsed := urls.Parse $clean -}}
+{{- if ne $parsed.Scheme "" -}}
+    {{- $resolved = $clean -}}
+{{- else -}}
+    {{- with $page.Resources.GetMatch $match -}}
+        {{- $resolved = .Permalink -}}
+    {{- else -}}
+        {{- if $.relative -}}
+            {{- $resolved = path.Join $page.RelPermalink $clean | absURL -}}
+        {{- else -}}
+            {{- $resolved = $clean | absURL -}}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+{{- return $resolved -}}

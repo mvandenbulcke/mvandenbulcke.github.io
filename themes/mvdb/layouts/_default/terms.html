@@ -1,0 +1,28 @@
+{{- define "main" }}
+<header class="page-header page-header--editorial topics-header">
+    {{- partial "breadcrumbs.html" . }}
+    <div class="page-header__grid">
+        <p class="eyebrow">Knowledge map</p>
+        <div>
+            <h1>{{ if eq .Type "tags" }}Topics{{ else }}{{ .Title }}{{ end }}</h1>
+            <p class="post-description">The technologies, platforms, and problems that recur across the field notes.</p>
+        </div>
+    </div>
+</header>
+
+<ul class="topic-grid" aria-label="{{ .Title }}">
+    {{- $type := .Type }}
+    {{- range $index, $term := .Data.Terms.ByCount }}
+    {{- with site.GetPage (printf "/%s/%s" $type .Name) }}
+    <li>
+        <a href="{{ .RelPermalink }}">
+            <span class="topic-grid__index">{{ printf "%02d" (add $index 1) }}</span>
+            <strong>{{ .LinkTitle }}</strong>
+            <span class="topic-grid__count">{{ $term.Count }} {{ if eq $term.Count 1 }}note{{ else }}notes{{ end }}</span>
+            <span class="topic-grid__arrow" aria-hidden="true">↗</span>
+        </a>
+    </li>
+    {{- end }}
+    {{- end }}
+</ul>
+{{- end }}

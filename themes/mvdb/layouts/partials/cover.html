@@ -1,0 +1,17 @@
+{{- $page := .cxt -}}
+{{- if and $page.Params.cover.image (not .isHidden) -}}
+    {{- $src := printf "%v" $page.Params.cover.image -}}
+    {{- $clean := index (split $src "#") 0 -}}
+    {{- $match := strings.TrimPrefix "./" $clean -}}
+    {{- $resource := $page.Resources.GetMatch $match -}}
+    {{- $url := partial "resolve-image.html" (dict "page" $page "src" $clean "relative" ($page.Params.cover.relative | default false)) -}}
+    {{- $alt := $page.Params.cover.alt | default $page.Params.cover.caption | default $page.Title | plainify -}}
+    {{- $loading := cond .IsSingle "eager" "lazy" -}}
+    {{- $linkFull := and site.Params.cover.linkFullImages .IsSingle -}}
+<figure class="entry-cover">
+    {{- if $linkFull }}<a href="{{ $url }}" target="_blank" rel="noopener noreferrer">{{ end -}}
+    <img src="{{ $url }}" alt="{{ $alt }}" loading="{{ $loading }}" decoding="async"{{ with $resource }} width="{{ .Width }}" height="{{ .Height }}"{{ end }}>
+    {{- if $linkFull }}</a>{{ end -}}
+    {{- with $page.Params.cover.caption }}<figcaption>{{ . | markdownify }}</figcaption>{{ end -}}
+</figure>
+{{- end -}}

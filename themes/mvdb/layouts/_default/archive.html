@@ -1,0 +1,42 @@
+{{- define "main" }}
+{{- $posts := where site.RegularPages "Type" "in" site.Params.mainSections -}}
+<header class="page-header page-header--editorial archive-header">
+    {{- partial "breadcrumbs.html" . }}
+    <div class="page-header__grid">
+        <p class="eyebrow">All writing / {{ len $posts }} posts</p>
+        <div>
+            <h1>{{ .Title }}</h1>
+            <p class="post-description">{{ .Description }}</p>
+            <div class="archive-header__links">
+                <a href="{{ "/tags/" | relLangURL }}">Browse by topic <span aria-hidden="true">→</span></a>
+                <a href="{{ "/index.xml" | relLangURL }}">Follow via RSS <span aria-hidden="true">→</span></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="archive-years">
+    {{- range $posts.GroupByDate "2006" }}
+    <section class="archive-year" aria-labelledby="archive-year-{{ .Key }}">
+        <h2 id="archive-year-{{ .Key }}">{{ .Key }}</h2>
+        <ol>
+            {{- range .Pages }}
+            <li class="archive-entry">
+                <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan" }}</time>
+                <div class="archive-entry__body">
+                    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                    <p>{{ .Description | default .Summary | plainify | htmlUnescape | truncate 180 }}</p>
+                </div>
+                {{- with .GetTerms "tags" }}
+                <ul class="archive-entry__tags" aria-label="Topics">
+                    {{- range first 2 . }}<li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{- end }}
+                </ul>
+                {{- end }}
+                <span class="archive-entry__arrow" aria-hidden="true">→</span>
+            </li>
+            {{- end }}
+        </ol>
+    </section>
+    {{- end }}
+</div>
+{{- end }}

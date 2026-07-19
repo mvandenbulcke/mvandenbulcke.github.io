@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="{{ site.Language.LanguageCode | default site.Language.Lang | default "en" }}" dir="{{ site.Language.LanguageDirection | default "ltr" }}">
+<head>
+    {{- partial "head.html" . }}
+</head>
+{{- $bodyClass := printf "kind-%s" .Kind -}}
+{{- if ne .Kind "page" }}{{ $bodyClass = printf "%s list" $bodyClass }}{{ end -}}
+{{- if .IsHome }}{{ $bodyClass = printf "%s is-home" $bodyClass }}{{ end -}}
+{{- $defaultTheme := lower (site.Params.defaultTheme | default "auto") -}}
+{{- if not (in (slice "auto" "light" "dark") $defaultTheme) }}{{ $defaultTheme = "auto" }}{{ end -}}
+{{- $bodyClass = printf "%s theme-%s" $bodyClass $defaultTheme -}}
+{{- if eq $defaultTheme "dark" }}{{ $bodyClass = printf "%s dark" $bodyClass }}{{ end -}}
+<body class="{{ $bodyClass }}" data-theme-default="{{ $defaultTheme }}" id="top">
+    {{- partial "header.html" . }}
+    <main class="main" id="main-content" tabindex="-1">
+        {{- block "main" . }}{{ end }}
+    </main>
+    {{- partial "footer.html" . }}
+</body>
+</html>

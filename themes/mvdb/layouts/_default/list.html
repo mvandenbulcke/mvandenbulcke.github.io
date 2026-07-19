@@ -1,0 +1,129 @@
+{{- define "main" }}
+
+{{- $allPages := union .RegularPages .Sections -}}
+{{- if .IsHome -}}
+    {{- $allPages = where site.RegularPages "Type" "in" site.Params.mainSections -}}
+    {{- $allPages = where $allPages "Params.hiddenInHomeList" "ne" true -}}
+{{- end -}}
+{{- $paginator := .Paginate $allPages -}}
+
+{{- if .IsHome }}
+    {{- if eq $paginator.PageNumber 1 }}
+    <section class="site-intro" aria-labelledby="intro-title">
+        <div class="site-intro__copy">
+            <p class="eyebrow">Systems engineer · Practical field notes</p>
+            <h1 id="intro-title">Hi, I’m <em>Michaël Vandenbulcke.</em></h1>
+            <p class="site-intro__lede">I write practical notes about Azure, Windows, automation, networking, and the infrastructure problems that take longer to solve than expected.</p>
+            <p class="site-intro__context">These are field-tested guides and investigations: the starting conditions, the useful wrong turns, and the fix that held.</p>
+            <div class="site-intro__actions">
+                <a class="button button--primary" href="{{ "/start/" | relLangURL }}">Start here <span aria-hidden="true">→</span></a>
+                <a class="button button--secondary" href="{{ "/about/" | relLangURL }}">More about me</a>
+            </div>
+            <div class="site-intro__social" aria-label="Find Michaël Vandenbulcke elsewhere or follow the blog">
+                {{- with site.Params.socialIcons }}
+                    {{- range . }}
+                    <a href="{{ .url }}" target="_blank" rel="me noopener noreferrer">{{ partial "social_label.html" .name }} <span aria-hidden="true">↗</span></a>
+                    {{- end }}
+                {{- end }}
+                <a href="{{ "/index.xml" | relLangURL }}">RSS <span aria-hidden="true">↗</span></a>
+            </div>
+        </div>
+        <aside class="site-intro__profile" aria-labelledby="writing-about-title">
+            <p class="eyebrow">Writing about</p>
+            <h2 id="writing-about-title">Systems, from cloud to cable.</h2>
+            <ul>
+                <li><a href="{{ "/tags/azure-stack-hci/" | relLangURL }}">Azure &amp; hybrid infrastructure</a></li>
+                <li><a href="{{ "/tags/powershell/" | relLangURL }}">PowerShell &amp; automation</a></li>
+                <li><a href="{{ "/tags/intune/" | relLangURL }}">Windows &amp; endpoint management</a></li>
+                <li><a href="{{ "/tags/troubleshooting/" | relLangURL }}">Troubleshooting &amp; operations</a></li>
+            </ul>
+            <a class="site-intro__profile-link" href="{{ "/tags/" | relLangURL }}">Browse all topics <span aria-hidden="true">→</span></a>
+        </aside>
+    </section>
+    {{- end }}
+
+    <section class="home-journal" aria-labelledby="journal-title">
+        <header class="section-heading">
+            <div>
+                <p class="eyebrow">{{ if eq $paginator.PageNumber 1 }}Latest from the blog{{ else }}From the archive{{ end }}</p>
+                <h2 id="journal-title">{{ if eq $paginator.PageNumber 1 }}Recent writing{{ else }}Blog · page {{ $paginator.PageNumber }}{{ end }}</h2>
+            </div>
+            <p>{{ len $allPages }} practical guides, notes, and investigations.</p>
+        </header>
+
+        <div class="post-feed">
+            {{- range $page := $paginator.Pages }}
+            <article class="post-preview">
+                <header class="post-preview__header">
+                    <div class="post-preview__meta">
+                        {{- if not .Date.IsZero }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format site.Params.DateFormat }}</time>{{ end }}
+                        <span>{{ .ReadingTime }} min read</span>
+                        {{- if .Params.featured }}<span class="post-preview__recommended">Recommended</span>{{ end }}
+                    </div>
+                    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                </header>
+                <p class="post-preview__summary">{{ .Description | default .Summary | plainify | htmlUnescape | truncate 320 }}</p>
+                <footer class="post-preview__footer">
+                    {{- with .GetTerms "tags" }}
+                    <ul class="post-preview__tags" aria-label="Topics">
+                        {{- range first 3 . }}<li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{- end }}
+                    </ul>
+                    {{- end }}
+                    <a class="post-preview__read" href="{{ .RelPermalink }}" aria-label="Read {{ .Title | plainify }}">Read article <span aria-hidden="true">→</span></a>
+                </footer>
+            </article>
+            {{- end }}
+        </div>
+
+        {{- partial "pagination.html" (dict "paginator" $paginator) }}
+        {{- if eq $paginator.PageNumber 1 }}
+        <footer class="section-outro">
+            <span>Looking for something specific?</span>
+            <nav aria-label="More ways to browse">
+                <a href="{{ "/archive/" | relLangURL }}">Complete archive <span aria-hidden="true">→</span></a>
+                <a href="{{ "/tags/" | relLangURL }}">Browse by topic <span aria-hidden="true">→</span></a>
+            </nav>
+        </footer>
+        {{- end }}
+    </section>
+
+{{- else }}
+    <header class="page-header page-header--editorial">
+        {{- partial "breadcrumbs.html" . }}
+        <div class="page-header__grid">
+            <p class="eyebrow">Index / {{ .Kind }}</p>
+            <div>
+                <h1>{{ .Title }}</h1>
+                {{- with .Description }}
+                <p class="post-description">{{ . | markdownify }}</p>
+                {{- else }}
+                <p class="post-description">Practical notes from real systems: what worked, what failed, and what is worth carrying forward.</p>
+                {{- end }}
+            </div>
+        </div>
+    </header>
+
+    {{- with .Content }}<div class="post-content page-introduction">{{ . }}</div>{{- end }}
+
+    <section class="list-index" aria-label="{{ .Title }} entries">
+        {{- range $index, $page := $paginator.Pages }}
+        <article class="list-row">
+            <span class="list-row__index">{{ printf "%02d" (add $index 1) }}</span>
+            <div class="list-row__title">
+                {{- with .GetTerms "tags" }}<span>{{ (index . 0).LinkTitle }}</span>{{ end }}
+                <h2>{{ .Title }}</h2>
+            </div>
+            <p class="list-row__summary">{{ .Description | default .Summary | plainify | htmlUnescape | truncate 170 }}</p>
+            <div class="list-row__meta">
+                {{- if not .Date.IsZero }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format site.Params.DateFormat }}</time>{{ end }}
+                <span>{{ .ReadingTime }} min</span>
+            </div>
+            <span class="list-row__arrow" aria-hidden="true">↗</span>
+            <a class="entry-link" aria-label="Read {{ .Title | plainify }}" href="{{ .RelPermalink }}"></a>
+        </article>
+        {{- end }}
+    </section>
+    {{- partial "pagination.html" (dict "paginator" $paginator) }}
+{{- end }}
+
+{{- end }}

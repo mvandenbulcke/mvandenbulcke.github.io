@@ -1,0 +1,84 @@
+{{- if not (.Param "hideFooter") }}
+<footer class="footer site-footer">
+    <div class="site-footer__lead">
+        <p class="eyebrow">Written by Michaël Vandenbulcke</p>
+        <p>Practical notes for people who run complicated systems.</p>
+    </div>
+    <div class="site-footer__links">
+        <nav aria-label="Footer navigation">
+            {{- range site.Menus.main }}<a href="{{ .URL | relLangURL }}">{{ .Name }}</a>{{- end }}
+        </nav>
+        {{- with site.Params.socialIcons }}
+        <div aria-label="Social links">
+            {{- range . }}
+            <a href="{{ .url }}" target="_blank" rel="me noopener noreferrer">{{ partial "social_label.html" .name }} <span aria-hidden="true">↗</span></a>
+            {{- end }}
+        </div>
+        {{- end }}
+    </div>
+    <div class="site-footer__fineprint">
+        <span>&copy; {{ now.Year }} {{ partial "author.html" . }}</span>
+        <span>Independent technical blog · Published on the open web</span>
+    </div>
+</footer>
+{{- end }}
+
+{{- if not site.Params.disableScrollToTop }}
+<a href="#top" aria-label="Back to top" title="Back to top" class="top-link" id="top-link"><span aria-hidden="true">↑</span></a>
+{{- end }}
+
+{{- partial "extend_footer.html" . }}
+
+<script>
+    (() => {
+        const toggle = document.getElementById('theme-toggle');
+        const syncToggle = () => {
+            if (!toggle) return;
+            const isDark = document.body.classList.contains('dark');
+            toggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+            toggle.setAttribute('aria-pressed', String(isDark));
+        };
+
+        if (toggle) {
+            syncToggle();
+            toggle.addEventListener('click', () => {
+                const useDark = !document.body.classList.contains('dark');
+                document.body.classList.toggle('dark', useDark);
+                try { localStorage.setItem('pref-theme', useDark ? 'dark' : 'light'); } catch (_) {}
+                syncToggle();
+            });
+        }
+
+        const topLink = document.getElementById('top-link');
+        if (topLink) {
+            const syncTopLink = () => topLink.classList.toggle('is-visible', window.scrollY > 700);
+            syncTopLink();
+            window.addEventListener('scroll', syncTopLink, { passive: true });
+        }
+    })();
+</script>
+
+{{- if and (eq .Kind "page") (.Param "ShowCodeCopyButtons") }}
+<script>
+    document.querySelectorAll('.post-content pre').forEach((pre) => {
+        const code = pre.querySelector('code');
+        if (!code || pre.querySelector('.copy-code')) return;
+
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'copy-code';
+        button.textContent = 'Copy';
+        button.setAttribute('aria-label', 'Copy code to clipboard');
+        button.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(code.textContent);
+                button.textContent = 'Copied';
+            } catch (_) {
+                button.textContent = 'Select & copy';
+            }
+            window.setTimeout(() => { button.textContent = 'Copy'; }, 1800);
+        });
+        pre.appendChild(button);
+    });
+</script>
+{{- end }}

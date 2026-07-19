@@ -1,0 +1,11 @@
+{{- $description := site.Params.description | default site.Title -}}
+{{- with .Description -}}
+    {{- $description = . -}}
+{{- else -}}
+    {{- if .IsPage -}}
+        {{- with .Summary }}{{ $description = . }}{{ end -}}
+    {{- end -}}
+{{- end -}}
+{{- $description = trim ($description | plainify | htmlUnescape) " \n\r\t" -}}
+{{- $description = $description | truncate 180 -}}
+{{- return $description -}}

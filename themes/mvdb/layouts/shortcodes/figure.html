@@ -1,0 +1,22 @@
+{{- $src := .Get "src" -}}
+{{- if not $src }}{{ errorf "figure shortcode requires src: %s" .Position }}{{ end -}}
+{{- $center := or (strings.HasSuffix $src "#center") (eq (.Get "align") "center") -}}
+{{- $clean := strings.TrimSuffix "#center" $src -}}
+{{- $match := strings.TrimPrefix "./" $clean -}}
+{{- $resource := .Page.Resources.GetMatch $match -}}
+{{- $url := $clean -}}
+{{- $width := .Get "width" -}}
+{{- $height := .Get "height" -}}
+{{- with $resource -}}
+    {{- $url = .RelPermalink -}}
+    {{- if not $width }}{{ $width = .Width }}{{ end -}}
+    {{- if not $height }}{{ $height = .Height }}{{ end -}}
+{{- end -}}
+{{- $caption := .Get "caption" | default (.Get "title") -}}
+{{- $alt := .Get "alt" | default ($caption | plainify) -}}
+<figure class="content-figure{{ if $center }} content-figure--center{{ end }}{{ with .Get "class" }} {{ . }}{{ end }}">
+    {{- with .Get "link" }}<a href="{{ . | safeURL }}"{{ with $.Get "target" }} target="{{ . }}"{{ end }}{{ with $.Get "rel" }} rel="{{ . }}"{{ end }}>{{ end -}}
+    <img src="{{ $url | safeURL }}" alt="{{ $alt }}" loading="lazy" decoding="async"{{ with .Get "title" }} title="{{ . }}"{{ end }}{{ with $width }} width="{{ . }}"{{ end }}{{ with $height }} height="{{ . }}"{{ end }}>
+    {{- if .Get "link" }}</a>{{ end -}}
+    {{- with $caption }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+</figure>

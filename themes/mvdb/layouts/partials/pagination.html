@@ -1,0 +1,13 @@
+{{- with .paginator -}}
+{{- if gt .TotalPages 1 -}}
+<nav class="pagination" aria-label="Pagination">
+    {{- if .HasPrev }}
+    <a class="prev" href="{{ .Prev.URL }}" rel="prev"><span aria-hidden="true">←</span> Newer notes</a>
+    {{- end }}
+    <span class="pagination__status">Page {{ .PageNumber }} of {{ .TotalPages }}</span>
+    {{- if .HasNext }}
+    <a class="next" href="{{ .Next.URL }}" rel="next">Older notes <span aria-hidden="true">→</span></a>
+    {{- end }}
+</nav>
+{{- end -}}
+{{- end -}}

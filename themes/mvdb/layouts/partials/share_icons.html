@@ -1,0 +1,11 @@
+{{- $pageURL := .Permalink | urlquery -}}
+{{- $title := .Title | plainify | urlquery -}}
+{{- $xURL := printf "https://x.com/intent/post?text=%s&url=%s" $title $pageURL | safeURL -}}
+{{- $linkedInURL := printf "https://www.linkedin.com/sharing/share-offsite/?url=%s" $pageURL | safeURL -}}
+{{- $emailURL := printf "mailto:?subject=%s&body=%s" $title $pageURL | safeURL -}}
+<ul class="share-buttons" aria-label="Share this note">
+    <li class="share-buttons__label" aria-hidden="true">Share</li>
+    <li><a href="{{ $xURL }}" target="_blank" rel="noopener noreferrer" aria-label="Share {{ .Title | plainify }} on X">X ↗</a></li>
+    <li><a href="{{ $linkedInURL }}" target="_blank" rel="noopener noreferrer" aria-label="Share {{ .Title | plainify }} on LinkedIn">LinkedIn ↗</a></li>
+    <li><a href="{{ $emailURL }}" aria-label="Share {{ .Title | plainify }} by email">Email ↗</a></li>
+</ul>

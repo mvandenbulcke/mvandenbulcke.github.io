@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="{{ site.Language.LanguageCode | default site.Language.Lang | default "en" }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Moved: {{ .Title }} | {{ site.Title }}</title>
+    <meta name="description" content="This field note has moved. Continue to its canonical address.">
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="{{ .Permalink }}">
+    {{- $images := partial "page-images.html" . -}}
+    {{- if gt (len $images) 0 }}
+    {{- with index $images 0 }}
+    <meta property="og:image" content="{{ . }}">
+    {{- end }}
+    {{- end }}
+    <meta http-equiv="refresh" content="0; url={{ .Permalink }}">
+</head>
+<body>
+    <main>
+        <h1>This field note has moved.</h1>
+        <p><a href="{{ .Permalink }}">Continue to {{ .Title }}</a>.</p>
+    </main>
+</body>
+</html>

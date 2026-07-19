@@ -1,0 +1,11 @@
+{{- $src := .Destination -}}
+{{- $center := strings.HasSuffix $src "#center" -}}
+{{- $clean := strings.TrimSuffix "#center" $src -}}
+{{- $match := strings.TrimPrefix "./" $clean -}}
+{{- $resource := .Page.Resources.GetMatch $match -}}
+{{- $url := $clean -}}
+{{- with $resource }}{{ $url = .RelPermalink }}{{ end -}}
+<figure class="content-figure{{ if $center }} content-figure--center{{ end }}">
+    <img src="{{ $url | safeURL }}" alt="{{ .Text }}" loading="lazy" decoding="async"{{ with .Title }} title="{{ . }}"{{ end }}{{ with $resource }} width="{{ .Width }}" height="{{ .Height }}"{{ end }}>
+    {{- with .Title }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>
